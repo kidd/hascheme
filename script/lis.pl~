@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Data::Dumper; 
+use Perl6::Say;
+
+sub readFile {
+	open my $code, '<', shift or die "no file!$!";
+	local $/;
+	my $res= <$code>;
+	close $code;
+	return $res;
+}
+
+
+#main
+
+my $text = readFile(@ARGV);
+$text =~ s/([)(])/ $1 /g;
+my @tokens = split / /, $text;
+say "@tokens";
