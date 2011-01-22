@@ -1,58 +1,60 @@
 ---
-generation: 6
-last_run_time: 1294777437.57247
+generation: 8
+last_run_time: 1295736736.86545
 tests:
   t/00-load.t:
-    elapsed: 0.0146009922027588
-    gen: 6
-    last_fail_time: 1294777408.59254
+    elapsed: 0.0631659030914307
+    gen: 8
+    last_fail_time: 1295736736.1765
     last_pass_time: 1294777436.58974
-    last_result: 0
-    last_run_time: 1294777436.58974
+    last_result: 5
+    last_run_time: 1295736736.1765
     last_todo: 0
-    mtime: 1293233916
-    seq: 18
-    total_failures: 2
+    mtime: 1295736731
+    seq: 27
+    total_failures: 4
     total_passes: 2
   t/01-Reader.t:
-    elapsed: 0.0153779983520508
-    gen: 6
-    last_fail_time: 1294777437.56665
-    last_result: 1
-    last_run_time: 1294777437.56665
+    elapsed: 0.0244760513305664
+    gen: 8
+    last_fail_time: 1295736736.48675
+    last_result: 2
+    last_run_time: 1295736736.48675
     last_todo: 0
-    mtime: 1294777372
-    seq: 20
-    total_failures: 4
+    mtime: 1295735161
+    seq: 29
+    total_failures: 6
   t/boilerplate.t:
-    elapsed: 0.0415430068969727
-    gen: 6
+    elapsed: 0.0459821224212646
+    gen: 8
+    last_fail_time: 1295736735.87041
     last_pass_time: 1294777436.31437
-    last_result: 0
-    last_run_time: 1294777436.31437
-    last_todo: 3
-    mtime: 1293233916
-    seq: 16
+    last_result: 1
+    last_run_time: 1295736735.87041
+    last_todo: 2
+    mtime: 1295735161
+    seq: 26
+    total_failures: 2
     total_passes: 4
   t/pod-coverage.t:
-    elapsed: 0.0881001949310303
-    gen: 6
-    last_fail_time: 1294777436.80991
+    elapsed: 0.155005931854248
+    gen: 8
+    last_fail_time: 1295736736.85586
     last_result: 6
-    last_run_time: 1294777436.80991
+    last_run_time: 1295736736.85586
     last_todo: 0
-    mtime: 1293233916
-    seq: 19
-    total_failures: 4
+    mtime: 1295735161
+    seq: 30
+    total_failures: 6
   t/pod.t:
-    elapsed: 0.0547118186950684
-    gen: 6
-    last_pass_time: 1294777436.53392
+    elapsed: 0.0558350086212158
+    gen: 8
+    last_pass_time: 1295736736.44485
     last_result: 0
-    last_run_time: 1294777436.53392
+    last_run_time: 1295736736.44485
     last_todo: 0
-    mtime: 1293233916
-    seq: 17
-    total_passes: 4
+    mtime: 1295735161
+    seq: 28
+    total_passes: 6
 version: 1
 ...

@@ -30,15 +30,10 @@ sub build_env {
 	}
 }
 
-sub parse_sexp {
-		my $tokens = shift;
-}
-
 #main
 
 my $reader = Hascheme::Reader->new();
 #my $text = $reader->readFile(shift @ARGV or 'test.lisp');
-
 #my $text = '(define a (lambda (x y) (+ x y))) (a 3 4)';
 #my $text = '((lambda (x y) (+ x y)) 3 4)';
 #my $text = '(define abs (lambda (x) ((if (< x 0) - +) x))) (abs -7)';
