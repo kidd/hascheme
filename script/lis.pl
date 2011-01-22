@@ -8,7 +8,7 @@ use lib "$FindBin::Bin/../lib";
 
 use Data::Dumper;
 use Data::Dump qw(dump ddx);
-use Perl6::Say;
+use feature ':5.10';
 use Hascheme::Env;
 use Hascheme::Evaluator;
 use Hascheme::Reader;

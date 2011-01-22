@@ -3,7 +3,7 @@ use Data::Dump qw(dump ddx);
 use Moose;
 use autobox;
 use autobox::Core;
-use Perl6::Say;
+use feature ':5.10';
 use Data::Dumper;
 use Hascheme::Primitives;
 use List::MoreUtils qw(mesh);
@@ -24,14 +24,7 @@ sub find {
 	else {
 		return $self->parent->find($item) if $self->parent;
 	}
-	die "no trobbo $item";
-	return undef;
-
-}
-
-sub set {
-	my ($self, $key, $val ) = @_;
-
+	die "Can't find item: $item ";
 }
 
 sub apply {

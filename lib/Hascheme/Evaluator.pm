@@ -2,7 +2,7 @@ package Hascheme::Evaluator;
 use Moose;
 use autobox;
 use autobox::Core;
-use Perl6::Say;
+use feature ':5.10';
 use Data::Dumper;
 use List::MoreUtils qw(mesh);
 

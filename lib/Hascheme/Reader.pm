@@ -3,7 +3,7 @@ use Moose;
 use Data::Dumper;
 use autobox;
 use autobox::Core;
-use Perl6::Say;
+use feature ':5.10';
 
 
 sub readFile {

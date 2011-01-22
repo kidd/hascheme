@@ -2,7 +2,7 @@ package Hascheme::Primitives::Sum;
 use Moose;
 use autobox;
 use autobox::Core;
-use Perl6::Say;
+use feature ':5.10';
 use List::Util ('sum','reduce');
 
 extends 'Hascheme::Primitives';
