@@ -33,15 +33,8 @@ sub build_env {
 #main
 
 my $reader = Hascheme::Reader->new();
-#my $text = $reader->readFile(shift @ARGV or 'test.lisp');
-#my $text = '(define a (lambda (x y) (+ x y))) (a 3 4)';
-#my $text = '((lambda (x y) (+ x y)) 3 4)';
-#my $text = '(define abs (lambda (x) ((if (< x 0) - +) x))) (abs -7)';
-#my $text = '(define abs (lambda (x) x )) (if (> (abs 5) (abs 4)) si no)';
-#my $text = '((lambda (x) ((if (< x 0) - +) x)) -8) ';
-#my $text = '(define var 4) (if (< var 2) (set! var 1) (set! var 2)) var ';
-my $text = '(define fact (lambda (x) (if (< x 3) x (* x (fact (- x 1)))))) (fact 10) ';
 
+my $text = '(define make-acc (lambda (i) (lambda (x) (set!  i (- i x))))) (define a (make-acc 1000))';
 #my $text = '(define fact (lambda (x) (if (< x 2) 1 (fact 9) ))) (fact 10) ';
 
 	my $env = Hascheme::Env->new(env=>build_env());

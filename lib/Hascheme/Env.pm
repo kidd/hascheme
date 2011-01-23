@@ -27,6 +27,16 @@ sub find {
 	die "Can't find item: $item ";
 }
 
+sub set {
+	my ($self, $key, $val ) = @_;
+	if (exists $self->env->{$key}) {
+		$self->env->{$key} = $val;
+	}
+	else {
+		$self->parent->set($key,$val) if $self->parent;
+	}
+}
+
 sub apply {
 	ddx @_;
 	my $self = shift;

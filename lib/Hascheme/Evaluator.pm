@@ -1,5 +1,6 @@
 package Hascheme::Evaluator;
 use Moose;
+use Data::Dump qw(dump ddx);
 use autobox;
 use autobox::Core;
 use feature ':5.10';
@@ -23,10 +24,15 @@ sub evaluate {
 		say 'val:' , $env->find($sexp);
 		return $env->find($sexp);
 	}
+	elsif($sexp->[0] eq 'env'){
+		print ddx $env;
+	}
+
 	elsif($sexp->[0] eq 'set!'){
 		die unless $env->find($sexp->[1]);
-		$env->env->{$sexp->[1]} = $sexp->[2];
-		return;
+		$env->set($sexp->[1], $self->evaluate($sexp->[2], $env)) ;
+		#$env->env->{$sexp->[1]} = $self->evaluate($sexp->[2], $env);
+		return $env->find( $sexp->[1] );
 	}
 	elsif( $sexp->[0] eq 'if' ){
 		say "un if";
