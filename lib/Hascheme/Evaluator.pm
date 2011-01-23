@@ -24,15 +24,17 @@ sub evaluate {
 		say 'val:' , $env->find($sexp);
 		return $env->find($sexp);
 	}
-	elsif($sexp->[0] eq 'env'){
-		print ddx $env;
-	}
+	elsif($sexp->[0] eq 'env'){ print ddx $env; }
 
 	elsif($sexp->[0] eq 'set!'){
 		die unless $env->find($sexp->[1]);
 		$env->set($sexp->[1], $self->evaluate($sexp->[2], $env)) ;
-		#$env->env->{$sexp->[1]} = $self->evaluate($sexp->[2], $env);
 		return $env->find( $sexp->[1] );
+	}
+	elsif($sexp->[0] eq 'begin'){
+		my $val;
+		$val = $self->evaluate($sexp->[$_],$env) for ( 1..$#$sexp );
+		return $val;
 	}
 	elsif( $sexp->[0] eq 'if' ){
 		say "un if";
@@ -47,17 +49,16 @@ sub evaluate {
 	say "una lambda", Dumper $sexp->[2];
 		return sub {
 			say "hola",Dumper $sexp->[2];
-			return $self->evaluate( $sexp->[2], 
-							 Hascheme::Env->new(env=>{ mesh @{$sexp->[1]} , @{$_[0]} }
-								  		,parent=>$env));
+			my $new_env = Hascheme::Env->new(env=>{ mesh @{$sexp->[1]} , @{$_[0]} }
+								  		,parent=>$env);
+			my $ret;
+			$ret = $self->evaluate( $sexp->[$_], $new_env) for (2..$#$sexp);
+			return $ret;
 		}
 	}
 	elsif (ref $sexp eq 'ARRAY' ){ #&& exists $env->env->{$sexp->[0]}) {
 		say 'n';
-		my @s = map {say "param $_";
-				       $self->evaluate($_,$env)}
-				    @$sexp;
-		my $op = shift @s;
+		my ($op, @s) = map { $self->evaluate($_,$env)} @$sexp;
 		return $env->apply( $op, [@s]);
 	}
 	say "al final" if 0 == @$sexp;

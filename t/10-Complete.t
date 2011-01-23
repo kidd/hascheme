@@ -44,8 +44,13 @@ is try('(define abs (lambda (x) x )) (if (> (abs 5) (abs 4)) 1 0)') ,1,'funs in 
 is try('((lambda (x) ((if (< x 0) - +) x)) -8)'),8,'anon fun applied' ;
 is try('(define var 4) (if (< var 2) (set! var 1) (set! var 2)) var'),2,'set';
 is try('(define var 4) (if (< var 2) (set! var 1) (set! var (- var 2))) var'),2,'set';
-is try('(define make-acc (lambda (initial) (define i initial) (lambda (x) (set!  i (- i x)) i))) (define a (make-acc 1000)) (a 100)'), 900, 'oop';
-#is try('(define make-acc (lambda (initial) (lambda (x) (set! initial (- initial x)) initial ))) ((make-acc 100) 50)'), 50, 'oop2'; 
+
+is try('(define make-acc (lambda (i) (lambda (x) (set!  i (- i x))))) (define a (make-acc 1000)) (a 100)'),900,'lexical scope bind';
+is try('(define make-acc (lambda (i) (lambda (x) (set!  i (- i x))))) (define a (make-acc 1000)) (a 100) (a 100)'),800,'lexical scope retrieval';
+
+is try('(define make-acc (lambda (initial) (define i initial) (lambda (x) (set!  i (- i x)) i))) (define a (make-acc 1000)) (a 100)'), 900, 'multiple sexp in lambdas';
+
+is try('(define make-acc (lambda (i) (lambda (x) (set! i (- i x)) i ))) ((make-acc 100) 50)'), 50, 'multiple sexp in lambda, returning value'; 
 
 
 
