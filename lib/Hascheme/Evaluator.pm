@@ -9,9 +9,7 @@ use List::MoreUtils qw(mesh);
 
 
 sub evaluate {
-	my $self = shift;
-	my $sexp = shift;
-	my $env = shift;
+	my ($self ,$sexp , $env ) = @_;
 
 	say "eing? $sexp" unless defined $sexp;
 	

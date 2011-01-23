@@ -1,60 +1,82 @@
 ---
-generation: 8
-last_run_time: 1295736736.86545
+generation: 10
+last_run_time: 1295745345.26102
 tests:
   t/00-load.t:
-    elapsed: 0.0631659030914307
-    gen: 8
-    last_fail_time: 1295736736.1765
-    last_pass_time: 1294777436.58974
-    last_result: 5
-    last_run_time: 1295736736.1765
+    elapsed: 0.303505897521973
+    gen: 10
+    last_fail_time: 1295745332.91788
+    last_pass_time: 1295745343.07839
+    last_result: 0
+    last_run_time: 1295745343.07839
     last_todo: 0
-    mtime: 1295736731
-    seq: 27
-    total_failures: 4
-    total_passes: 2
+    mtime: 1295737195
+    seq: 42
+    total_failures: 5
+    total_passes: 3
   t/01-Reader.t:
-    elapsed: 0.0244760513305664
-    gen: 8
-    last_fail_time: 1295736736.48675
+    elapsed: 0.0974910259246826
+    gen: 10
+    last_fail_time: 1295745345.25108
     last_result: 2
-    last_run_time: 1295736736.48675
+    last_run_time: 1295745345.25108
     last_todo: 0
-    mtime: 1295735161
-    seq: 29
-    total_failures: 6
+    mtime: 1295737216
+    seq: 44
+    total_failures: 8
+  t/02-Evaluator.t:
+    elapsed: 0.109408140182495
+    gen: 10
+    last_fail_time: 1295745343.01741
+    last_result: 1
+    last_run_time: 1295745343.01741
+    last_todo: 0
+    mtime: 1295737259
+    seq: 41
+    total_failures: 2
+  t/10-Complete.t:
+    elapsed: 1.4839448928833
+    gen: 10
+    last_fail_time: 1295745334.14866
+    last_pass_time: 1295745344.64386
+    last_result: 0
+    last_run_time: 1295745344.64386
+    last_todo: 0
+    mtime: 1295745297
+    seq: 43
+    total_failures: 1
+    total_passes: 1
   t/boilerplate.t:
-    elapsed: 0.0459821224212646
-    gen: 8
-    last_fail_time: 1295736735.87041
+    elapsed: 0.0894038677215576
+    gen: 10
+    last_fail_time: 1295745338.95787
     last_pass_time: 1294777436.31437
     last_result: 1
-    last_run_time: 1295736735.87041
+    last_run_time: 1295745338.95787
     last_todo: 2
     mtime: 1295735161
-    seq: 26
-    total_failures: 2
+    seq: 38
+    total_failures: 4
     total_passes: 4
   t/pod-coverage.t:
-    elapsed: 0.155005931854248
-    gen: 8
-    last_fail_time: 1295736736.85586
+    elapsed: 0.241979837417603
+    gen: 10
+    last_fail_time: 1295745339.54863
     last_result: 6
-    last_run_time: 1295736736.85586
+    last_run_time: 1295745339.54863
     last_todo: 0
     mtime: 1295735161
-    seq: 30
-    total_failures: 6
+    seq: 40
+    total_failures: 8
   t/pod.t:
-    elapsed: 0.0558350086212158
-    gen: 8
-    last_pass_time: 1295736736.44485
+    elapsed: 0.112881898880005
+    gen: 10
+    last_pass_time: 1295745339.41639
     last_result: 0
-    last_run_time: 1295736736.44485
+    last_run_time: 1295745339.41639
     last_todo: 0
     mtime: 1295735161
-    seq: 28
-    total_passes: 6
+    seq: 39
+    total_passes: 8
 version: 1
 ...
