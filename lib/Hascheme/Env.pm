@@ -38,7 +38,6 @@ sub set {
 }
 
 sub apply {
-	ddx @_;
 	my $self = shift;
 	my $op = shift;
 	say "apply $op";

@@ -13,16 +13,17 @@ sub evaluate {
 
 	say "eing? $sexp" unless defined $sexp;
 	
-	say $sexp, ':',ref \$sexp, '<->', ref $sexp;
+	#say $sexp, ':',ref \$sexp, '<->', ref $sexp;
 	#say 'hh=>',Dumper($sexp, $env) ;
 	if (ref \$sexp eq 'SCALAR' && $sexp =~ /^\s*-?\d+\s*$/) {
 		return $sexp;
 	}
 	elsif (ref \$sexp eq 'SCALAR' ){
-		say 'val:' , $env->find($sexp);
+		#say 'val:' , $env->find($sexp);
 		return $env->find($sexp);
 	}
 	elsif($sexp->[0] eq 'env'){ print ddx $env; }
+	elsif($sexp->[0] eq 'quote'){ return $sexp->[1]; }
 
 	elsif($sexp->[0] eq 'set!'){
 		die unless $env->find($sexp->[1]);
@@ -40,13 +41,13 @@ sub evaluate {
 			, $env) ;
 	}
 	elsif( $sexp->[0] eq 'define' ){
-	say "una def :", $sexp->[1];
+	#say "una def :", $sexp->[1];
 		$env->env->{$sexp->[1]} = $self->evaluate($sexp->[2], $env);
 	}
 	elsif($sexp->[0] eq 'lambda' ) {
-	say "una lambda", Dumper $sexp->[2];
+	#say "una lambda", Dumper $sexp->[2];
 		return sub {
-			say "hola",Dumper $sexp->[2];
+			#say "hola",Dumper $sexp->[2];
 			my $new_env = Hascheme::Env->new(env=>{ mesh @{$sexp->[1]} , @{$_[0]} }
 								  		,parent=>$env);
 			my $ret;

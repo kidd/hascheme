@@ -1,8 +1,14 @@
 Hascheme
 
 Hascheme is the name for Half assed scheme, or my attempt to do my version of
-norvig's 90line scheme interpreter in pyhton.
+norvig's 90line scheme interpreter in python. But in Perl.
 
+It doesn't support most of the things you'd expect for a usable language, like
+strings, for example, but it's just a PoC of how easy can be to have an
+interpreter for a language that lets you do quoting, recursion, lambdas, and
+basic arithmetic ops.
+
+debug tip :There's a builtin called env (no params) that dumps the environment.
 
 INSTALLATION
 
