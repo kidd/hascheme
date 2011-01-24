@@ -8,6 +8,16 @@ use Hascheme::Env;
 use Hascheme::Evaluator;
 use Hascheme::Reader;
 
+has reader => ( is =>'ro',
+				isa =>'Hascheme::Reader',
+				default=>sub {Hascheme::Reader->new});
+
+has evaluator => (is =>'ro', 
+				  isa =>'Hascheme::Evaluator',
+				  default=>sub{Hascheme::Evaluator->new});
+
+has env => (is =>'ro', isa =>'Hascheme::Env', default=>sub{Hascheme::Env->new});
+
 sub build_env {
 	return {
 		'write' => sub {my $a=shift;say "@$a"},
@@ -24,19 +34,30 @@ sub build_env {
 	}
 }
 
+sub parse_file {
+	my ($self, $file) = @_;
+	open my $fh, '<',$file or die "file $file does not exist. $!";
+	my $code='';
+	while (<$fh>) {
+		chomp;
+		s/;.*//;
+		$code .= $_;
+	}
+	close $fh;
+
+	my $sexp = $self->reader->parse($code);
+	say $self->evaluator->evaluate($_, $self->env) for @$sexp;
+}
+
 sub run {
 	my ($self) = @_;
-	my $reader = Hascheme::Reader->new();
-	my $env = Hascheme::Env->new;
-	my $evaluator = Hascheme::Evaluator->new;
 	while (1) {
 		print "lis.pl> ";
 		my $text = <STDIN>;
-		my $sexp = $reader->parse($text) ;
+		my $sexp = $self->reader->parse($text) ;
 		ddx $sexp; 
-		say $evaluator->evaluate($_, $env) for @$sexp;
+		say $self->evaluator->evaluate($_, $self->env) for @$sexp;
 	}
-
 }
 
 

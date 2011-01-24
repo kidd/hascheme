@@ -17,7 +17,14 @@ use Hascheme::Primitives::Sum;
 
 #main
 
-Hascheme->new->run;
+
+if (@ARGV) {
+	Hascheme->new->parse_file(shift);
+}
+else{
+	Hascheme->new->run;
+}
+
 die;
 
 my $reader = Hascheme::Reader->new();
@@ -27,7 +34,6 @@ my $text = '(define make-acc (lambda (i) (lambda (x) (set!  i (- i x))))) (defin
 
 	my $env = Hascheme::Env->new(env=>build_env());
 	my $evaluator = Hascheme::Evaluator->new;
-
 	my $init = $reader->parse($text);
 	say $evaluator->evaluate($_, $env) for @$init;
 
