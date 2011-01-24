@@ -5,16 +5,31 @@ use autobox;
 use autobox::Core;
 use feature ':5.10';
 use Data::Dumper;
-use Hascheme::Primitives;
 use List::MoreUtils qw(mesh);
 
 
 has 'env' => (is =>'rw',
-			  isa =>'HashRef');
+			  isa =>'HashRef',
+			  default=>\&build_env);
 
 has parent => (is =>'rw', isa =>'Hascheme::Env' );
 		  
-		  
+sub build_env{
+	return {
+		'write' => sub {my $a=shift;say "@$a"},
+		'+' => sub {my$acc=0;$acc+=$_ for@{$_[0]};$acc},
+		'*' => sub {my$acc=1;$acc*=$_ for@{$_[0]};$acc},
+		'<' => sub { $_[0]->[0] < $_[0]->[1]},
+		'>' => sub { $_[0]->[0] > $_[0]->[1]},
+		'-' => sub { my $args = shift; 
+			return shift(@$args )* -1 if ( 1 == scalar @$args );
+			my $a = shift @$args;
+			$a -= $_ for @$args;
+			$a },
+		#'+' => Hascheme::Primitives::Sum->new ,
+	}
+}
+
 sub find {
 	my $self = shift;
 	my $item = shift;
@@ -25,6 +40,11 @@ sub find {
 		return $self->parent->find($item) if $self->parent;
 	}
 	die "Can't find item: $item ";
+}
+
+sub define {
+	my ($self, $key, $val) = @_ ;
+	$self->env->{$key} = $val;
 }
 
 sub set {

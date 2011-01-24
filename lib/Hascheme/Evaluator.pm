@@ -38,11 +38,12 @@ sub evaluate {
 	elsif( $sexp->[0] eq 'if' ){
 		say "un if";
 		return $self->evaluate($sexp->[$self->evaluate($sexp->[1],$env) ? 2 : 3] 
-			, $env) ;
+							   , $env) ;
 	}
 	elsif( $sexp->[0] eq 'define' ){
 	#say "una def :", $sexp->[1];
-		$env->env->{$sexp->[1]} = $self->evaluate($sexp->[2], $env);
+		#$env->env->{$sexp->[1]} = $self->evaluate($sexp->[2], $env);
+		$env->define($sexp->[1], $self->evaluate($sexp->[2], $env));
 	}
 	elsif($sexp->[0] eq 'lambda' ) {
 	#say "una lambda", Dumper $sexp->[2];

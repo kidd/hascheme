@@ -20,7 +20,6 @@ sub parse_sanitized {
 	my $arr = shift;
 	return unless scalar @$arr;
 	my $token = shift @$arr;
-	#return [] unless $token;
 	die "error, extra )" if ( $token =~ /^\s*\)\s*$/ );
 	if ( $token =~ /^\s*\(\s*$/ ){
 		my @sexp;

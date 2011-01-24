@@ -10,27 +10,15 @@ use Data::Dumper;
 use Data::Dump qw(dump ddx);
 use feature ':5.10';
 use Hascheme::Env;
+use Hascheme;
 use Hascheme::Evaluator;
 use Hascheme::Reader;
 use Hascheme::Primitives::Sum;
 
-sub build_env {
-	return {
-		'write' => sub {my $a=shift;say "@$a"},
-		'+' => sub {my$acc=0;$acc+=$_ for@{$_[0]};$acc},
-		'*' => sub {my$acc=1;$acc*=$_ for@{$_[0]};$acc},
-		'<' => sub { $_[0]->[0] < $_[0]->[1]},
-		'>' => sub { $_[0]->[0] > $_[0]->[1]},
-		'-' => sub { my $args = shift; 
-					return shift(@$args )* -1 if ( 1 == scalar @$args );
-					my $a = shift @$args;
-					$a -= $_ for @$args;
-					$a },
-		#'+' => Hascheme::Primitives::Sum->new ,
-	}
-}
-
 #main
+
+Hascheme->new->run;
+die;
 
 my $reader = Hascheme::Reader->new();
 
