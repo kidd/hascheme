@@ -6,6 +6,7 @@ use autobox::Core;
 use feature ':5.10';
 use Data::Dumper;
 use List::MoreUtils qw(mesh);
+use Hascheme::Reader;
 
 
 sub evaluate {
@@ -21,8 +22,10 @@ sub evaluate {
 	}
 	elsif($sexp->[0] eq 'env'){ print ddx $env; }
 	elsif($sexp->[0] eq 'repl'){ Hascheme->new(env=>$env)->run;die }
-	elsif($sexp->[0] eq 'quote'){ return $sexp->[1]; }
-
+	elsif($sexp->[0] eq 'quote'){ return $sexp->[1] }
+	elsif($sexp->[0] eq 'list'){
+		return $self->build_list($sexp,$env);
+	}
 	elsif($sexp->[0] eq 'set!'){
 		die unless $env->find($sexp->[0]);
 		$env->set($sexp->[1], $self->evaluate($sexp->[2], $env)) ;
@@ -56,6 +59,23 @@ sub evaluate {
 	say "al final" if 0 == @$sexp;
 }
 
+sub build_list {
+	say ddx @_;
+	my $self = shift;
+	my $sexp = shift;
+	my $env = shift;
+	my $str='';
+	$str .= "( cons ".$sexp->[$_]  for (1..$#$sexp);
+	$str.= ' 0 ' . ')'x $#$sexp;
+	my $code = Hascheme::Reader->new->parse($str);
+	say ddx $code;
+	return $self->evaluate($code->[0], $env);
+	#my $self = shift;
+	#return 0 unless @_;
+	#my $car = shift;
+	#my $cdr = $self->build_list(@_);
+	#return sub { say $_[0]  == 0 ? 'zero' : ddx shift }
+}
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1; # End of Hascheme::Evaluator;

@@ -1,19 +1,15 @@
 (define cons 
   (lambda (x y)
 	(lambda (pos)
-	  (if (= pos 1) x y))))
+	  (if (= pos 0) x y))))
 
 (define car
   (lambda (x)
-	(x 1)))
+	(x 0)))
 
 (define cdr
   (lambda (x)
-	(x 2)))
-
-(define list 
-    (lambda (x y z)
-      (cons x (cons y (cons z nil)))))
+	(x 1)))
 
 (define plist
     (lambda (l)
@@ -22,4 +18,6 @@
 
 (write (cdr (cons 3 4)))
 (write (car (cons 3 4)))
+(define l (list 1 2 3))
+
 (repl)
