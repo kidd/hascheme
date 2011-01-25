@@ -18,9 +18,11 @@ sub build_env{
 	return {
 		'write' => sub {my $a=shift;say "@$a"},
 		'+' => sub {my$acc=0;$acc+=$_ for@{$_[0]};$acc},
+		'nil' => 0,
 		'*' => sub {my$acc=1;$acc*=$_ for@{$_[0]};$acc},
 		'<' => sub { $_[0]->[0] < $_[0]->[1]},
 		'>' => sub { $_[0]->[0] > $_[0]->[1]},
+		'=' => sub { $_[0]->[0] == $_[-1]->[1]},
 		'-' => sub { my $args = shift; 
 			return shift(@$args )* -1 if ( 1 == scalar @$args );
 			my $a = shift @$args;
@@ -60,7 +62,7 @@ sub set {
 sub apply {
 	my $self = shift;
 	my $op = shift;
-	say "apply $op";
+	#say "apply $op";
 	$op->(shift);
 }
 

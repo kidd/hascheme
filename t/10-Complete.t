@@ -15,6 +15,7 @@ sub build_env {
 		'*' => sub {my$acc=1;$acc*=$_ for@{$_[0]};$acc},
 		'<' => sub { $_[0]->[0] < $_[0]->[1]},
 		'>' => sub { $_[0]->[0] > $_[0]->[1]},
+		'=' => sub { $_[0]->[0] == $_[0]->[1]},
 		'-' => sub { my $args = shift; 
 					return shift(@$args )* -1 if ( 1 == scalar @$args );
 					my $a = shift @$args;
@@ -37,6 +38,7 @@ sub try {
 
 
 is try('(+ 3 3)') , 6 , 'sum';
+is try('(= 3 3)') , 1 , 'eq';
 is try('(define a (lambda (x y) (+ x y))) (a 3 4)') ,7 ,'lambda';
 is try('(define abs (lambda (x) ((if (< x 0) - +) x))) (abs -7)'), 7 ,'if';
 is try('(define abs (lambda (x) ((if (< x 0) - +) x))) (abs 7)'), 7 ,'else';
