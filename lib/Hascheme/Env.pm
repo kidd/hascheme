@@ -1,8 +1,7 @@
 package Hascheme::Env;
 use Data::Dump qw(dump ddx);
 use Moose;
-use autobox;
-use autobox::Core;
+use Carp qw(confess);
 use feature ':5.10';
 use Data::Dumper;
 use List::MoreUtils qw(mesh);
@@ -13,16 +12,25 @@ has 'env' => (is =>'rw',
 			  default=>\&build_env);
 
 has parent => (is =>'rw', isa =>'Hascheme::Env' );
-		  
+
+sub recur { 
+	my $vals = shift;	
+	my @valors = @$vals;
+	[$valors[0] , defined $valors[1] ? recur([@valors[1..$#valors]]) : 0 ] };
+
 sub build_env{
 	return {
-		'write' => sub {my $a=shift;say "@$a"},
-		'+' => sub {my$acc=0;$acc+=$_ for@{$_[0]};$acc},
+		'write' => sub {my $a=shift;ddx $a},
+		'+' => sub {my$acc=0;$acc+=$_ for@{$_[0]}; $acc},
 		'nil' => 0,
 		'*' => sub {my$acc=1;$acc*=$_ for@{$_[0]};$acc},
 		'<' => sub { $_[0]->[0] < $_[0]->[1]},
 		'>' => sub { $_[0]->[0] > $_[0]->[1]},
-		'=' => sub { $_[0]->[0] == $_[-1]->[1]},
+		'=' => sub { $_[0]->[0] == $_[0]->[1]},
+		'cons' => sub { [$_[0]->[0] ,  $_[0]->[1]] },
+		'car' => sub {  $_[0]->[0]->[0] },
+		'cdr' => sub { $_[0]->[0]->[1] },
+		'list' => \&recur,
 		'-' => sub { my $args = shift; 
 			return shift(@$args )* -1 if ( 1 == scalar @$args );
 			my $a = shift @$args;
@@ -41,7 +49,7 @@ sub find {
 	else {
 		return $self->parent->find($item) if $self->parent;
 	}
-	die "Can't find item: $item ";
+	confess "Can't find item: $item ";
 }
 
 sub define {

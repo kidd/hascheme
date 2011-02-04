@@ -1,8 +1,6 @@
 package Hascheme::Reader;
 use Moose;
 use Data::Dumper;
-use autobox;
-use autobox::Core;
 use feature ':5.10';
 
 

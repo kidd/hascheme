@@ -1,12 +1,11 @@
 package Hascheme;
 use Moose;
-use autobox;
-use autobox::Core;
 use feature ':5.10';
 use Data::Dump qw(dump ddx);
 use Hascheme::Env;
 use Hascheme::Evaluator;
 use Hascheme::Reader;
+use Data::Dumper::Concise;
 
 has reader => ( is =>'ro',
 				isa =>'Hascheme::Reader',
@@ -38,13 +37,13 @@ sub parse_file {
 sub run {
 	my ($self) = @_;
 	while (1) {
-		print "lis.pl> ";
+		print "has> ";
 		my $text = <STDIN>;
 		my $sexp = $self->reader->parse($text) ;
 		ddx $sexp; 
 		my $res;
 		$res = $self->evaluator->evaluate($_, $self->env) for @$sexp;
-		say "res: $res";
+		say "res: "; print Dumper $res;
 	}
 }
 

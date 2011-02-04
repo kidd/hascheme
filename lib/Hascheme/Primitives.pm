@@ -1,7 +1,5 @@
 package Hascheme::Primitives;
 use Moose;
-use autobox;
-use autobox::Core;
 use feature ':5.10';
 use Hascheme::Primitives::Sum;
 
