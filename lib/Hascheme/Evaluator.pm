@@ -37,7 +37,13 @@ sub evaluate {
 							   , $env) ;
 	}
 	elsif( $sexp->[0] eq 'define' ){
-		$env->define($sexp->[1], $self->evaluate($sexp->[2], $env));
+	  if (ref $sexp->[1] eq 'ARRAY') {
+	    my ( $name, @params ) = @{$sexp->[1]};
+	    $env->define($name, $self->evaluate(['lambda',\@params,$sexp->[2]],$env))
+	  }
+	  else {
+	    $env->define($sexp->[1], $self->evaluate($sexp->[2], $env));
+	  }
 	}
 	elsif($sexp->[0] eq 'lambda' ) {
 		return sub {

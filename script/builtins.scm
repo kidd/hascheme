@@ -67,10 +67,11 @@
   (lambda (fun list)
     (foldr list (fun-and-cons fun) nil)))
 
-;; (define map 
-;;   (lambda (fun lst)
-;;     (if (= (cdr lst) nil)
-;; 	accum)))
+(define l2 (list 4 5 6))
+
+(define append
+  (lambda (l1 l2)
+    (foldr l1 cons l2)))
 
 ;; (define build-counters
 ;;   (lambda (till)
