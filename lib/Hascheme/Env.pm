@@ -63,7 +63,7 @@ sub set {
 		$self->env->{$key} = $val;
 	}
 	else {
-		$self->parent->set($key,$val) if $self->parent;
+		$self->parent->set($key,$val) if defined $self->parent;
 	}
 }
 

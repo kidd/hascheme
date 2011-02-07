@@ -23,7 +23,7 @@ sub evaluate {
 	elsif($sexp->[0] eq 'quote'){ return $sexp->[1] }
 	#elsif($sexp->[0] eq 'list'){ return $self->build_list($sexp,$env); }
 	elsif($sexp->[0] eq 'set!'){
-		die unless $env->find($sexp->[0]);
+		die unless defined $env->find($sexp->[1]);
 		$env->set($sexp->[1], $self->evaluate($sexp->[2], $env)) ;
 		return $env->find($sexp->[1]);
 	}
@@ -41,8 +41,10 @@ sub evaluate {
 	}
 	elsif($sexp->[0] eq 'lambda' ) {
 		return sub {
-			my $new_env = Hascheme::Env->new(env=>{ mesh @{$sexp->[1]} , @{$_[0]} }
+		  no warnings;
+			my $new_env = Hascheme::Env->new(env=>{ mesh @{$sexp->[1]}  , @{$_[0]} }
 								  		,parent=>$env);
+		  use warnings;
 			my $ret;
 			$ret = $self->evaluate( $sexp->[$_], $new_env) for (2..$#$sexp);
 			return $ret;

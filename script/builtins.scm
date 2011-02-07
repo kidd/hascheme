@@ -27,17 +27,50 @@
 
 (define gen-range 
   (lambda (from till)
-    (define gen-range-accum 
-      (lambda (from till acc)
-	(if (= from till) 
-	    acc
-	    (cons from (gen-range-accum (+ from 1) till acc))))
-      (gen-range-accum from till nil))
-    (gen-range-accum from till nil)))
+    (if (= from till) 
+	(cons from nil)
+	(cons from (gen-range (+ from 1) till)))))
+
+
+(define make-counter
+  (lambda ()
+    (define counter 0)
+    (lambda () 
+      (set! counter (+ counter 1))
+      counter)))
+
+(define foldr
+  (lambda (lst fun initial)
+    (if (= nil lst) 
+	initial
+	(fun (car lst) (foldr (cdr lst) fun initial)))))
+
+(define sum-list 
+  (lambda (lst)
+    (foldr lst + 0)))
+
+(define mult-list
+  (lambda (lst)
+    (foldr lst * 1)))
+
+(define length
+  (lambda (lst)
+    (define counter (make-counter))
+    (foldr lst counter 0)))
+
+(define fun-and-cons 
+  (lambda (fun)
+    (lambda (head tail)
+      (cons (fun head) tail))))
+
+(define map
+  (lambda (fun list)
+    (foldr list (fun-and-cons fun) nil)))
 
 ;; (define map 
 ;;   (lambda (fun lst)
-;;     ))
+;;     (if (= (cdr lst) nil)
+;; 	accum)))
 
 ;; (define build-counters
 ;;   (lambda (till)
