@@ -1,0 +1,27 @@
+
+* (let ((there be)) lisp)
+
+  I keep having lots of fun with hascheme.  In the last couple of
+  days, I implemented quite a few things.  Mostly they are syntax
+  sugar for things you could already do in HAS, or useful procedures
+  needed for my basic interpreter testing.
+
+  + Perl side
+
+    - *(define (fun args) body)* is now accepted as an alternative way
+      to declare procedures.
+
+    - *(let)* implemented. These bindings are just sintactic sugar for
+      what you'd write in perl:
+      sub { my $a=shift; ... }->(initial_val)
+
+  + Scheme side
+    Reread the 'Why functional programming matters' paper, and implemented:
+    
+    - *make-counter, foldr*
+      
+    - *append, sum-list, length, map* . All are specific cases of the previous
+
+
+Reading chapter 4 of our MIT beloved book, next step, making a lazy
+interpreter from this Half Assed one.

@@ -1,0 +1,25 @@
+
+* QuasiQuine
+  Little updates to Hascheme, I finally implemented cons, car, cdr,
+  and list as primitives, After implementing the prove that you can
+  have datastructures in a language without no more ground than
+  lambdas, I went for a bit more of efficiency (not that hascheme is
+  going to be in production *ever*, but you know...) 
+
+  Another motivation to implement lists as primitives is that this
+  way, I can get a kind of homoiconicity.  If conses are implemented
+  in the implemented language (scheme), a list will never be similar
+  to code, because Perl never sees the datastructure as something it
+  can deal with.
+
+  And what's the ultimate motivation for having all this stuff
+  working? /fun/.
+
+  I used a very common lisp quine to test that code and data are
+  implemented internally the same way.  That gave a good testbed for
+  quote too.  Unfortunately, using Perl Data::Dump* modules, I can't
+  tune how lists are printed, and the final nil gets printed too.
+
+  Well, here's the proof that Half Assed Scheme can do Half Assed
+  Quines.
+

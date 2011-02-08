@@ -1,0 +1,47 @@
+
+* I made you an interpreter, but I ated
+
+  Been hacking on HAS a bit more, to push forward its functionality.
+  Mostly what's been achieved by now:
+  + Perl side
+    - *(repl)* primitive implemented. it acts as a debugger in some way,
+      because it gives you the environment in the state of the moment
+      when you executed it.  I couldn't implement it in scheme itself
+      because I have no eval available from scheme.
+    - *Read plain files*. As I started implementing some functionality
+      in scheme, A scheme file must be loaded at start. just enter the
+      file name as a parameter. Last sexp should be (repl) to have
+      your repl available.
+    - *Comments*. ';' is the comment marker
+    - *=* operator
+    - *nil*. transformed to 0.
+    - *list*. yeah. As HAScheme can't understand variable length
+      arguments, I implemented it to make it more confortable to build
+      lists.  It's built on an ugly hack. More on that later.
+  + Scheme side
+    - *cons, car, cdr*. Implemented basic structures. Implemented as
+      lambdas. as in SICP, somewhere in chapter 2 IIRC. Simple though
+      impressive  IMHO (and inefficient, but...)
+    - *print_list*. conses down a list and prints each element in a
+      line
+
+I run it using builtins.scm as the first parameter, and then, repl is
+yours, with lists and conses available for you.  
+
+* Now the not-so-beautiful parts
+
+  If I want lists, I just have to nest conses, but who doesn't want a
+  litte luxury?.
+
+  To implement list, I've thought 3 possible solutions (haven't read
+  about how to implement them correctly, just brainstorming):
+  + Variable actual arguments. If I could implement the dot (.) syntax
+    for variable number of arguments, I could implement list as a
+    simple scheme function.  Problem is that I need lists to stash
+    the resting parameters, and I haven't though how to bootstrap.
+  + Write a new primitive (on the perl side) that builds the correct
+    cons structures, on the perl side.  Mind you, that list is *VERY*
+    coupled to cons implementation. And quite fuzzy on the perl side
+    too.
+  + Substitute list for the appropiate number of conses (as a string),
+    and let the already written parser.

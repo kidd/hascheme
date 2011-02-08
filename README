@@ -21,13 +21,19 @@ To install this module, run the following commands:
 
 SUPPORT AND DOCUMENTATION
 
-After installing, you can find documentation for this module with the
-perldoc command.
+	you can follow the advances of hascheme in My Blog
+	http://puntoblogspot.blogspot.com . or mail me at
+	raimonster_REMOVEME_@gmail.com . 
+	
+	To run hascheme, you need some perl libs:
+	
+	Moose
+	Data::Dumper::Concise
+	List::MoreUtils
+	Data::Dump
+	Carp
 
-    perldoc Hascheme
-
-No docs for the moment. take a look at lispy implementation. it does mostly the
-same.
+	use cpanm or cpan to install those libs.
 
 COPYRIGHT AND LICENCE
 
