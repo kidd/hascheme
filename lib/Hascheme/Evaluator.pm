@@ -6,7 +6,7 @@ use Data::Dumper;
 use List::MoreUtils qw(mesh);
 use Hascheme::Reader;
 
-
+my $lll=0;
 sub evaluate {
 	my ($self ,$sexp , $env ) = @_;
 
@@ -33,8 +33,24 @@ sub evaluate {
 		return $val;
 	}
 	elsif( $sexp->[0] eq 'if' ){
-		return $self->evaluate($sexp->[$self->evaluate($sexp->[1],$env) ? 2 : 3] 
+		return $self->evaluate($sexp->[$self->evaluate($sexp->[1],$env) ? 2 : 3]
 							   , $env) ;
+	}
+	elsif ($sexp->[0] eq 'let') {
+
+	  # (let ((a 3)
+	  #       (b 4))
+	  # body)
+	  my (undef , $params, @body) = @$sexp;
+	  ddx $sexp;
+	  ddx map {$_->[0]} @$params;
+	  ddx @body;
+#	  my @s = [ 'lambda', [ map {$_->[0]} @$params ], @body], map {$_->[1]} @$params ;
+	  my $s = [[ 'lambda', [ map {$_->[0]} @$params ], @body], 32];
+	  # my $s = [["lambda", ["a", "b"], ["+", "a", "b" ]] , 3 , 4];
+	  ddx $lll++;
+	  return $self->evaluate( $s,
+			   $env);
 	}
 	elsif( $sexp->[0] eq 'define' ){
 	  if (ref $sexp->[1] eq 'ARRAY') {
@@ -46,6 +62,7 @@ sub evaluate {
 	  }
 	}
 	elsif($sexp->[0] eq 'lambda' ) {
+	  ddx $lll++, $sexp;
 		return sub {
 		  no warnings;
 			my $new_env = Hascheme::Env->new(env=>{ mesh @{$sexp->[1]}  , @{$_[0]} }
@@ -57,6 +74,7 @@ sub evaluate {
 		}
 	}
 	elsif (ref $sexp eq 'ARRAY' ){ #&& exists $env->env->{$sexp->[0]}) {
+	  ddx $lll++ , $sexp;
 		my ($op, @s) = map { $self->evaluate($_,$env)} @$sexp;
 		return $env->apply( $op, [@s]);
 	}
