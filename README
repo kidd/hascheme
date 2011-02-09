@@ -35,6 +35,9 @@ SUPPORT AND DOCUMENTATION
 
 	use cpanm or cpan to install those libs.
 
+	run the code with something like
+	perl script/lis.pl script/builtins.scm	
+
 COPYRIGHT AND LICENCE
 
 Copyright (C) 2010 Raimon Grau
