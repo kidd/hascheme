@@ -37,17 +37,15 @@ sub evaluate {
 							   , $env) ;
 	}
 	elsif ($sexp->[0] eq 'let') {
-
 	  # (let ((a 3)
 	  #       (b 4))
 	  # body)
 	  my (undef , $params, @body) = @$sexp;
-	  ddx $sexp;
-	  ddx map {$_->[0]} @$params;
-	  ddx @body;
+	  #ddx $sexp;
+	  #ddx map {$_->[0]} @$params;
+	  #ddx @body;
 #	  my @s = [ 'lambda', [ map {$_->[0]} @$params ], @body], map {$_->[1]} @$params ;
-	  my $s = [[ 'lambda', [ map {$_->[0]} @$params ], @body], 32];
-	  # my $s = [["lambda", ["a", "b"], ["+", "a", "b" ]] , 3 , 4];
+	  my $s = [[ 'lambda', [ map {$_->[0]} @$params ], @body], map {$_->[1]} @$params];
 	  ddx $lll++;
 	  return $self->evaluate( $s,
 			   $env);
@@ -62,11 +60,9 @@ sub evaluate {
 	  }
 	}
 	elsif($sexp->[0] eq 'lambda' ) {
-	  ddx $lll++, $sexp;
-		return sub {
+	 		return sub {
 		  no warnings;
-			my $new_env = Hascheme::Env->new(env=>{ mesh @{$sexp->[1]}  , @{$_[0]} }
-								  		,parent=>$env);
+			my $new_env = Hascheme::Env->new(env=>{ mesh @{$sexp->[1]}  , @{$_[0]} } ,parent=>$env);
 		  use warnings;
 			my $ret;
 			$ret = $self->evaluate( $sexp->[$_], $new_env) for (2..$#$sexp);
@@ -74,9 +70,11 @@ sub evaluate {
 		}
 	}
 	elsif (ref $sexp eq 'ARRAY' ){ #&& exists $env->env->{$sexp->[0]}) {
-	  ddx $lll++ , $sexp;
-		my ($op, @s) = map { $self->evaluate($_,$env)} @$sexp;
-		return $env->apply( $op, [@s]);
+	  my ($op, @s) = map { $self->evaluate($_,$env)} @$sexp;
+	  say "apliquem", $sexp->[0];
+	  my $a = $env->apply( $op, [@s]);
+	  say "sortim de ", $sexp->[0];
+	  return $a;
 	}
 	say "al final" if 0 == @$sexp;
 }

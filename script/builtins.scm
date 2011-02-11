@@ -82,5 +82,11 @@
 ;; 	     x)) 
 ;; 	 list)))
 (let ((a 34)) (+ a 1))
+(define (fact n)
+  (if (= n 1)
+      1
+      (* (fact (- n 1))
+	 n)))
+
 
 (repl)

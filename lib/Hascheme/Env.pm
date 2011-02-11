@@ -4,19 +4,50 @@ use Moose;
 use Carp qw(confess);
 use feature ':5.10';
 use Data::Dumper;
+use Ubigraph;
 use List::MoreUtils qw(mesh);
 
-
 has 'env' => (is =>'rw',
-			  isa =>'HashRef',
-			  default=>\&build_env);
+	      isa =>'HashRef',
+	      default=>\&build_env);
 
 has parent => (is =>'rw', isa =>'Hascheme::Env' );
+
+has graph => (is => 'rw', isa => 'Ubigraph' , default => \&get_graph);
+
+has node => (is => 'rw', isa => 'Ubigraph::Vertex', lazy_build => 1);
+
+sub BUILD {
+	my $self = shift;
+	$self->graph->Edge($self->node,$self->parent->node ) if defined $self->parent;
+}
+
+sub DEMOLISH {
+	my $self = shift;
+	$self->node->remove;
+}
+sub _build_node {
+  my $self = shift;
+  my $n = $self->graph->Vertex();
+  return $n;
+}
 
 sub recur { 
 	my $vals = shift;	
 	my @valors = @$vals;
 	[$valors[0] , defined $valors[1] ? recur([@valors[1..$#valors]]) : 0 ] };
+
+
+{
+	my $graph;
+	sub newgraph {
+		$graph = new Ubigraph;
+		return $graph;
+	}
+	sub get_graph {
+		return $graph || newgraph();
+	}
+}
 
 sub build_env{
 	return {
@@ -37,6 +68,11 @@ sub build_env{
 			$a -= $_ for @$args;
 			$a },
 		#'+' => Hascheme::Primitives::Sum->new ,
+
+		'make-graph' => sub{ newgraph() },
+		'vertex' => sub { my $a=shift; $a->[0]->Vertex()},
+		#'edge' => sub { my $a=shift;shift(@$a); get_graph->Edge(shift(@$a),shift @$a)},
+		'edge' => sub { my $a=shift;shift(@$a)->Edge(shift(@$a),shift @$a)},
 	}
 }
 
@@ -70,8 +106,8 @@ sub set {
 sub apply {
 	my $self = shift;
 	my $op = shift;
-	#say "apply $op";
-	$op->(shift);
+	my $a = $op->(shift);
+	return $a;
 }
 
 no Moose;

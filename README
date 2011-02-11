@@ -32,9 +32,11 @@ SUPPORT AND DOCUMENTATION
 	List::MoreUtils
 	Data::Dump
 	Carp
+	Ubigraph
 
 	use cpanm or cpan to install those libs.
 
+	install ubigraph if you want to use last version of has
 	run the code with something like
 	perl script/lis.pl script/builtins.scm	
 
@@ -44,4 +46,3 @@ Copyright (C) 2010 Raimon Grau
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
-
