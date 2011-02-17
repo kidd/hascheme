@@ -49,7 +49,7 @@ sub recur {
 	}
 }
 
-sub build_env{
+sub build_env {
 	return {
 		'write' => sub {my $a=shift;ddx $a},
 		'+' => sub {my$acc=0;$acc+=$_ for@{$_[0]}; $acc},
@@ -70,9 +70,9 @@ sub build_env{
 		#'+' => Hascheme::Primitives::Sum->new ,
 
 		'make-graph' => sub{ newgraph() },
-		'vertex' => sub { my $a=shift; $a->[0]->Vertex()},
-		#'edge' => sub { my $a=shift;shift(@$a); get_graph->Edge(shift(@$a),shift @$a)},
-		'edge' => sub { my $a=shift;shift(@$a)->Edge(shift(@$a),shift @$a)},
+		'make-vertex' => sub { my $a=shift; $a->[0]->Vertex()},
+		'make-edge' => sub { my $a=shift;shift(@$a)->Edge(shift(@$a),shift @$a)},
+		'clear-graph' => sub {my $a=shift; shift(@$a)->clear()},
 	}
 }
 

@@ -88,5 +88,8 @@
       (* (fact (- n 1))
 	 n)))
 
+(define g (make-graph))
+(define v1 (make-vertex g))
+(define v2 (make-vertex g))
 
 (repl)
