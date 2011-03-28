@@ -10,6 +10,8 @@ basic arithmetic ops.
 
 debug tip :There's a builtin called env (no params) that dumps the environment.
 
+test
+
 INSTALLATION
 
 To install this module, run the following commands:
